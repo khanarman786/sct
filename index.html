@@ -1,196 +1,196 @@
-simple neural net : 
-x = float(input("enter the input : "))
-w = float(input("enter the weight : "))
-b = float(input("enter the bias : "))
-yin = (b +x*w)
-print("the value of yin is ",yin)
-if(yin<0):
-    output = 0
-elif(yin>1):
-    output = 1
-else:
-    output = yin
-print("output : ",output)
+simple neural net :<br>
+x = float(input("enter the input : "))<br>
+w = float(input("enter the weight : "))<br>
+b = float(input("enter the bias : "))<br>
+yin = (b +x*w)<br>
+print("the value of yin is ",yin)<br>
+if(yin<0):<br>
+    output = 0<br><br>
+elif(yin>1):<br>
+    output = 1<br>
+else:<br>
+    output = yin<br>
+print("output : ",output)<br>
+<br>
+caclulate output of neural net::::::<br><br>
+n = int(input("enter the number = "))<br>
+yin = 0<br>
+for i in range(0,n):<br>
+    x = float(input("enter the input : "))<br>
+    w  = float(input("enter the weight : "))<br>
+    yin = (yin+x*w)<br>
+print("yin is ",yin)<br>
+if(yin<0):<br>
+    output = 0<br>
+elif(yin>1):<br>
+    output =1<br>
+else:<br>
+    output = yin<br>
+print("the output is ",output)<br>
 
-caclulate output of neural net::::::
-n = int(input("enter the number = "))
-yin = 0
-for i in range(0,n):
-    x = float(input("enter the input : "))
-    w  = float(input("enter the weight : "))
-    yin = (yin+x*w)
-print("yin is ",yin)
-if(yin<0):
-    output = 0
-elif(yin>1):
-    output =1
-else:
-    output = yin
-print("the output is ",output)
+<br>
+activation functions :::::::::<br>
+import math<br>
+n=int(input("enter number of input"))<br>
+yin = 0<br>
+for i in range(0,n):<br>
+    x = float(input("enter the input : "))<br>
+    w  = float(input("enter the weight : "))<br>
+    yin = (yin+x*w)<br>
+b = float(input("enter bias : "))<br>
+yin = yin+b<br>
+<br>
+print("Yin is ",yin)<br>
+binary_sigmoid = (1/(1+(math.e**(-yin))))<br>
+print("binary_sigmoidal = ",round(binary_sigmoid,3))<br>
+bipolar_sigmoid = (2/(1+(math.e**(-yin))))-1<br>
+print("binary_sigmoidal = ",round(bipolar_sigmoid,3))<br>
 
-
-activation functions :::::::::
-import math
-n=int(input("enter number of input"))
-yin = 0
-for i in range(0,n):
-    x = float(input("enter the input : "))
-    w  = float(input("enter the weight : "))
-    yin = (yin+x*w)
-b = float(input("enter bias : "))
-yin = yin+b
-
-print("Yin is ",yin)
-binary_sigmoid = (1/(1+(math.e**(-yin))))
-print("binary_sigmoidal = ",round(binary_sigmoid,3))
-bipolar_sigmoid = (2/(1+(math.e**(-yin))))-1
-print("binary_sigmoidal = ",round(bipolar_sigmoid,3))
-
-
-mp andnot :::::::
-
-import numpy as np
-x1_input = [1,1,0,0]
-x2_input = [1,0,1,0]
-print("considering all weight as excitatory ")
-w1 = [1,1,1,1]
-w2 = [1,1,1,1]
-yin = []
-print("x1", "x2", "yin")
-for i in range(0,4):
-    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])
-    print(x1_input[i]," ",x2_input[i]," ",yin[i])
-print("considering all weight as inhibitory")
-w1 = [1,1,1,1]
-w2 = [-1,-1,-1,-1]
-yin = []
-print("x1" , "x2" , "yin")
-for i in range(0,4):
-    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])
-    print(x1_input[i]," ",x2_input[i]," ",yin[i])
-theta = 2*1-1
-print("applying threshold",theta)
-y=[]
-print("x1", "x2" , "y")
-for i in range(0,4):
-    if(yin[i]>=theta):
-        value=1
-        y.append(value)
-    else:
-        value=0
-        y.append(value)
-for i in range(0,4):
-    print(x1_input[i]," ",x2_input[i]," ",y[i])
+<br>
+mp andnot :::::::<br>
+<br>
+import numpy as np<br>
+x1_input = [1,1,0,0]<br>
+x2_input = [1,0,1,0]<br>
+print("considering all weight as excitatory ")<br>
+w1 = [1,1,1,1]<br>
+w2 = [1,1,1,1]<br>
+yin = []<br>
+print("x1", "x2", "yin")<br>
+for i in range(0,4):<br>
+    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])<br>
+    print(x1_input[i]," ",x2_input[i]," ",yin[i])<br>
+print("considering all weight as inhibitory")<br>
+w1 = [1,1,1,1]<br>
+w2 = [-1,-1,-1,-1]<br>
+yin = []<br>
+print("x1" , "x2" , "yin")<br>
+for i in range(0,4):<br>
+    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])<br>
+    print(x1_input[i]," ",x2_input[i]," ",yin[i])<br>
+theta = 2*1-1<br>
+print("applying threshold",theta)<br>
+y=[]<br>
+print("x1", "x2" , "y")<br>
+for i in range(0,4):<br>
+    if(yin[i]>=theta):<br>
+        value=1<br>
+        y.append(value)<br>
+    else:<br>
+        value=0<br>
+        y.append(value)<br>
+for i in range(0,4):<br>
+    print(x1_input[i]," ",x2_input[i]," ",y[i])<br>
     
-    
-    
- mp xor :::::::
- print("XOR using MP neuron")
-x1_input=[1,1,0,0]
-x2_input=[1,0,1,0]
-print("considering one weight as excitatory and one as inhibitory")
-w11=[1,1,1,1]
-w12=[-1,-1,-1,-1]
-print("calculating z1")
-print("x1","x2","z1")
-z1=[]
-for i in range(0,4):
-    z1.append(x1_input[i]*w11[i] + x2_input[i]*w12[i])
-    print(x1_input[i]," ",x2_input[i]," ",z1[i])
-print("considering one weight as inhibitory and one as excitatory")
-w21=[-1,-1,-1,-1]
-w22=[1,1,1,1]
-z2=[]
-print("calculating z2")
-z2=[]
-for i in range(0,4):
-    z2.append(x1_input[i]*w21[i] + x2_input[i]*w22[i])
-    print(x1_input[i]," ",x2_input[i]," ",z2[i])
-print("applying threshold =1 for z1 and z2")
-for i in range(0,4):
-    if(z1[i]>=1):
-        z1[i]=1
-    else:
-        z1[i]=0
-    if(z2[i]>=1):
-        z2[i]=1
-    else:
-        z2[i]=0
-print("z1","z2")
-for i in range(0,4):
-    print(z1[i]," ",z2[i])
-print("applying threshold = 1 for yin")
-y=[]
-v1=1
-v2=1
-print("x1","x2","y")
-for i in range(0,4):
-    y.append(z1[i]*v1 + z2[i]*v2)
-    print(x1_input[i]," ",x2_input[i]," ",y[i])
-   
-hebb ::::::::
-import numpy as np
-x1=np.array([1,-1,-1,1,-1,-1,1,1,1])
-x2=np.array([1,-1,1,1,-1,1,1,1,1])
-b=0
-y=np.array([1,-1])
-wtold = np.zeros((9,))
-wtnew = np.zeros((9,))
-bias = 0
-wtnew = wtnew.astype(int)
-wtold = wtold.astype(int)
-print("first input with target 1")
-for i in range(0,9):
-    wtnew[i]=wtold[i]+x1[i]*y[0]
-wtold = wtnew
-b=b+y[0]
+    <br>
+    <br>
+ mp xor :::::::<br>
+ print("XOR using MP neuron")<br>
+x1_input=[1,1,0,0]<br>
+x2_input=[1,0,1,0]<br>
+print("considering one weight as excitatory and on<br>e as inhibitory")<br>
+w11=[1,1,1,1]<br>
+w12=[-1,-1,-1,-1]<br>
+print("calculating z1")<br>
+print("x1","x2","z1")<br>
+z1=[]<br>
+for i in range(0,4):<br>
+    z1.append(x1_input[i]*w11[i] + x2_input[i]*w12[i])<br>
+    print(x1_input[i]," ",x2_input[i]," ",z1[i])<br>
+print("considering one weight as inhibitory and one as excitatory")<br>
+w21=[-1,-1,-1,-1]<br>
+w22=[1,1,1,1]<br>
+z2=[]<br>
+print("calculating z2)<br>
+z2=[]<br>
+for i in range(0,4):<br>
+    z2.append(x1_input[i]*w21[i] + x2_input[i]*w22[i])<br>
+    print(x1_input[i]," ",x2_input[i]," ",z2[i])<br>
+print("applying threshold =1 for z1 and z2")<br>
+for i in range(0,4):<br>
+    if(z1[i]>=1):<br>
+        z1[i]=1<br>
+    else:<br>
+        z1[i]=0<br>
+    if(z2[i]>=1):<br>
+        z2[i]=1<br>
+    else:<br>
+        z2[i]=0<br>
+print("z1","z2")<br>
+for i in range(0,4):<br>
+    print(z1[i]," ",z2[i])<br>
+print("applying threshold = 1 for yin")<br>
+y=[]<br>
+v1=1<br>
+v2=1<br>
+print("x1","x2","y")<br>
+for i in range(0,4):<br>
+    y.append(z1[i]*v1 + z2[i]*v2)<br>
+    print(x1_input[i]," ",x2_input[i]," ",y[i])<br>
+   <br>
+hebb ::::::::<br>
+import numpy as np<br>
+x1=np.array([1,-1,-1,1,-1,-1,1,1,1])<br>
+x2=np.array([1,-1,1,1,-1,1,1,1,1])<br>
+b=0<br>
+y=np.array([1,-1])<br>
+wtold = np.zeros((9,))<br>
+wtnew = np.zeros((9,))<br>
+bias = 0<br>
+wtnew = wtnew.astype(int)<br>
+wtold = wtold.astype(int)<br>
+print("first input with target 1")<br>
+for i in range(0,9):<br>
+    wtnew[i]=wtold[i]+x1[i]*y[0]<br>
+wtold = wtnew<br>
+b=b+y[0]<br>
+print("new wt",wtnew)<br>
+print("Bias value ",b)<br>
+print("first input with target -1")<br>
+for i in range(0,9):<br>
+    wtnew[i]=wtold[i]+x2[i]*y[1]<br>
+wtold = wtnew<br>
+b=b+y[0]<br>
 print("new wt",wtnew)
-print("Bias value ",b)
-print("first input with target -1")
-for i in range(0,9):
-    wtnew[i]=wtold[i]+x2[i]*y[1]
-wtold = wtnew
-b=b+y[0]
-print("new wt",wtnew)
-print("Bias value ",b)
+print("Bias value ",b)<br>
+<br>
 
-
-delta ::::::::::::::::::::::::
+delta ::::::::::::::::::::::::<br>
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Oct  9 21:49:36 2022
+"""<br>
+Created on Sun Oct  9 21:49:36 2022<br>
 
-@author: arman
-"""
-import numpy as np
-np.set_printoptions(precision=2)
-x=np.zeros((3,))
-weight=np.zeros((3,))
-desired=np.zeros((3,))
-actual=np.zeros((3,))
-for i in range(0,3):
-    x[i]=float(input("initial input : "))
-for i in range(0,3):
-    weight[i]=float(input("initial weight : "))
-for i in range(0,3):
-    desired[i]=float(input("desired output :"))
-a=float(input("enter learning rate"))
-actual =a*weight
-print("actual ",actual)
-print("desired ",desired)
-while True:
-    if(np.array_equal(desired,actual)):
-        break
-    else:
-        for i in range(0,3):
-            weight[i]=weight[i]+a*(desired[i]-actual[i])
-    actual = x*weight
-print("weight",weight)
-print("actual ",actual)
-print("desired ",desired)
-print("*"*20)
-print("fianl output" )
-print("corrected weight ",weight)
-print("actual ",actual)
-print("desired",desired)
+@author: arman<br>
+"""<br>
+import numpy as np<br>
+np.set_printoptions(precision=2)<br>
+x=np.zeros((3,))<br>
+weight=np.zeros((3,))<br>
+desired=np.zeros((3,))<br>
+actual=np.zeros((3,))<br>
+for i in range(0,3):<br>
+    x[i]=float(input("initial input : "))<br>
+for i in range(0,3):<br>
+    weight[i]=float(input("initial weight : "))<br>
+for i in range(0,3):<br>
+    desired[i]=float(input("desired output :"))<br>
+a=float(input("enter learning rate"))<br>
+actual =a*weight<br>
+print("actual ",actual)<br>
+print("desired ",desired)<br>
+while True:<br>
+    if(np.array_equal(desired,actual)):<br>
+        break<br>
+    else:<br>
+        for i in range(0,3):<br>
+            weight[i]=weight[i]+a*(desired[i]-actual[i])<br>
+    actual = x*weight<br>
+print("weight",weight)<br>
+print("actual ",actual)<br>
+print("desired ",desired)<br>
+print("*"*20)<br>
+print("fianl output" )<br>
+print("corrected weight ",weight)<br>
+print("actual ",actual)<br>
+print("desired",desired)<br>
 
