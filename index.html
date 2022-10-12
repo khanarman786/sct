@@ -1,41 +1,117 @@
-<h2>a)	AIM: write a program for implementing client server communication model using TCP/IP for checking whether the given number is prime or not.</h2>
-<h2>TcpServerPrime:</h2>
-package tcpclientprime;
-import java.net.*;
-import java.io.*;
-public class TcpClientPrime {
- 
-    public static void main(String[] args) {
-        try {
-            Socket cs=new Socket("LocalHost",8001);
-            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));
-            
-            System.out.println("Enter a Number:");
-            int a=Integer.parseInt(info.readLine());
-            
-            DataOutputStream out=new DataOutputStream(cs.getOutputStream());
-            out.writeInt(a);
-            DataInputStream in = new DataInputStream(cs.getInputStream());
-System.out.println(in.readUTF());
-cs.close();   }
-catch(Exception e)   {  System.out.println(e.toString());     }  }  }
-
-TcpClientPrime:
-package tcpclientprime;
-import java.net.*;
-import java.io.*;
-public class TcpClientPrime {
-    public static void main(String[] args) {
-        try{
-            Socket cs=new Socket("LocalHost",8001);
-            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));
-            
-            System.out.println("Enter a Number:");
-            int a=Integer.parseInt(info.readLine());
-            
-            DataOutputStream out=new DataOutputStream(cs.getOutputStream());
-            out.writeInt(a);
-            DataInputStream in = new DataInputStream(cs.getInputStream());
-System.out.println(in.readUTF());
-cs.close();   }  catch(Exception e)   {  System.out.println(e.toString());      }   }   }
-
+<h2>a)	AIM: write a program for implementing client server communication model using TCP/IP for checking whether the given number is prime or not.</h2><br>
+<h2>TcpServerPrime:</h2><br>
+package tcpclientprime;<br>
+import java.net.*;<br>
+import java.io.*;<h2><br>
+public class TcpClientPrime {<br>
+ <br>
+    public static void main(String[] args) {<br>
+        try {<br>
+            Socket cs=new Socket("LocalHost",8001);<br>
+            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));<br>
+            <br>
+            System.out.println("Enter a Number:");<br>
+            int a=Integer.parseInt(info.readLine());<br>
+            <br>
+            DataOutputStream out=new DataOutputStream(cs.getOutputStream());<br>
+            out.writeInt(a);<br>
+            DataInputStream in = new DataInputStream(cs.getInputStream());<br>
+System.out.println(in.readUTF());<br>
+cs.close();   }<br>
+catch(Exception e)   {  System.out.println(e.toString());     }  }  }<br>
+<br>
+<h2>TcpClientPrime:</h2><br>
+package tcpclientprime;<br>
+import java.net.*;<br>
+import java.io.*;<br>
+public class TcpClientPrime {<br>
+    public static void main(String[] args) {<br>
+        try{<br>
+            Socket cs=new Socket("LocalHost",8001);<br>
+            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));<br>
+            <br>
+            System.out.println("Enter a Number:");<br>
+            int a=Integer.parseInt(info.readLine());<br>
+            <br>
+            DataOutputStream out=new DataOutputStream(cs.getOutputStream());<br>
+            out.writeInt(a);<br>
+            DataInputStream in = new DataInputStream(cs.getInputStream());<br>
+System.out.println(in.readUTF());<br>
+cs.close();   }  catch(Exception e)   {  System.out.println(e.toString());      }   }   }<br>
+<br>
+<br>
+<br>
+<h2>b) AIM: A client server TCP based chatting application.</h2><br>
+import java.net.*;<br>
+import java.io.*;<br>
+class ChatServer<br>
+{<br>
+public static void main(String args[])<br>
+{<br>
+try<br>
+{<br>
+ServerSocket ss = new ServerSocket(8000); <br>
+System.out.println("Waiting for client to <br>
+connect.."); Socket s = ss.accept();<br>
+BufferedReader br = new <br>
+BufferedReader(new InputStreamReader(System.in));<br>
+DataOutputStream out = new <br>
+DataOutputStream(s.getOutputStream()); DataInputStream in = new <br>
+DataInputStream(s.getInputStream()); String receive, send;<br>
+while((receive = in.readLine()) != null)<br>
+{<br>
+if(receive.equals("STOP"))<br>
+break;<br>
+System.out.println("Client Says : "+receive);<br>
+System.out.print("Server Says : ");<br>
+send = br.readLine();<br>
+out.writeBytes(send+"\n");<br>
+}<br>
+br.close();<br>
+in.close();<br>
+out.close();<br>
+s.close();<br>
+}<br>
+catch(Exception e)<br>
+{<br>
+e.printStackTrace();<br>
+}<br>
+}<br>
+}<br>
+<h2> ChatClient.java</h2><br>
+import java.net.*;<br>
+import java.io.*;<br>
+class ChatClient<br>
+{<br>
+public static void main(String args[])<br>
+{<br>
+try<br>
+{<br>
+Socket s = new Socket("Localhost",8000); <br>
+BufferedReader br = new BufferedReader(new<br>
+InputStreamReader(System.in));<br>
+DataOutputStream out = new <br>
+DataOutputStream(s.getOutputStream()); DataInputStream in = new <br>
+DataInputStream(s.getInputStream()); String msg;<br>
+System.out.println("To stop chatting with server type <br>
+STOP"); System.out.print("Client Says: "); while((msg = <br>
+br.readLine()) != null)<br>
+{<br>
+out.writeBytes(msg+"\n");<br>
+if(msg.equals("STOP"))<br>
+break;<br>
+System.out.println("Server Says : "+in.readLine());<br>
+System.out.print("Client Says : ");<br>
+}<br>
+br.close();<br>
+in.close();<br>
+out.close();<br>
+s.close();<br>
+}<br>
+catch(Exception e)<br>
+{<br>
+e.printStackTrace();<br>
+}<br>
+}<br>
+}<br>
+<br>
