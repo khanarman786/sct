@@ -1,24 +1,43 @@
 <h2>a)	AIM: write a program for implementing client server communication model using TCP/IP for checking whether the given number is prime or not.</h2><br>
 <h2>TcpServerPrime:</h2><br>
-package tcpclientprime;<br>
-import java.net.*;<br>
+pimport java.net.*;<br>
 import java.io.*;<br>
-public class TcpClientPrime {<br>
- <br>
-    public static void main(String[] args) {<br>
-        try {<br>
-            Socket cs=new Socket("LocalHost",8001);<br>
-            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));<br>
-            <br>
-            System.out.println("Enter a Number:");<br>
-            int a=Integer.parseInt(info.readLine());<br>
-            <br>
-            DataOutputStream out=new DataOutputStream(cs.getOutputStream());<br>
-            out.writeInt(a);<br>
-            DataInputStream in = new DataInputStream(cs.getInputStream());<br>
-System.out.println(in.readUTF());<br>
-cs.close();   }<br>
-catch(Exception e)   {  System.out.println(e.toString());     }  }  }<br>
+class tcpServerPrime<br>
+{<br>
+public static void main(String args[])<br>
+{<br>
+try<br>
+{<br>
+ServerSocket ss = new ServerSocket(8001);<br>
+System.out.println("Server Started...............");<br>
+Socket s = ss.accept();<br>
+DataInputStream in = new <br>
+DataInputStream(s.getInputStream()); int x= in.readInt();<br>
+DataOutputStream otc = new <br>
+DataOutputStream(s.getOutputStream()); int y = x/2;<br>
+if(x ==1 || x ==2 || x ==3)<br>
+{<br>
+otc.writeUTF(x + "is Prime");<br>
+System.exit(0);<br>
+}<br>
+for(int i=2; i<=y; i++)<br>
+{<br>
+if(x%i != 0)<br>
+{<br>
+otc.writeUTF(x + " is Prime");<br>
+}<br>
+else<br>
+{<br>
+otc.writeUTF(x + " is not Prime");<br>
+}<br>
+}<br>
+}<br>
+catch(Exception e)<br>
+{<br>
+System.out.println(e.toString());<br>
+}<br>
+}<br>
+}<br>
 <br>
 <h2>TcpClientPrime:</h2><br>
 package tcpclientprime;<br>
@@ -114,4 +133,457 @@ e.printStackTrace();<br>
 }<br>
 }<br>
 }<br>
+<br>
+<br>
+<h2>a)	AIM: A client server-based program using UDP to find if the number entered is even or odd.</h2><br>
+<h2>Server</h2><br>
+package udpservereo;<br>
+import java.io.*;<br>
+import java.net.*;<br>
+public class UDPServerEO {<br>
+ <br>
+    public static void main(String[] args) {<br>
+        int serverPort=2000;<br>
+        int clientPort=1000;<br>
+        try<br>
+        {<br>
+            DatagramSocket ds=new DatagramSocket(serverPort);<br>
+            byte b[]=new byte[1024];<br>
+            DatagramPacket dp=new DatagramPacket(b, b.length);<br>
+            ds.receive(dp);<br>
+            String str=new String(dp.getData(), 0, dp.getLength());<br>
+            System.out.println(str);<br>
+            int a= Integer.parseInt(str);<br>
+            String s= new String();<br>
+            if(a%2 == 0)<br>
+                s="Number is EVEN";<br>
+            else<br>
+                s="Number is ODD";<br>
+            byte b1[] = new byte[1024];<br>
+            b1 = s.getBytes();<br>
+            DatagramPacket dp1 = new DatagramPacket(b1, b1.length, InetAddress.getLocalHost(), clientPort);<br>
+            ds.send(dp1);<br>
+        }<br>
+        catch (Exception e){<br>
+            e.printStackTrace();<br>
+        }<br>
+    }  <br>
+}<br>
+<h2>Client</h2><br>
+package udpclienteo;<br>
+import java.io.*;<br>
+import java.net.*;<br>
+public class UDPClientEO {<br>
+ <br>
+    public static void main(String[] args) {<br>
+        int serverPort=2000;<br>
+        int clientPort=1000;<br>
+        try{<br>
+            DatagramSocket ds= new DatagramSocket(clientPort);<br>
+            BufferedReader br= new BufferedReader(new InputStreamReader(System.in));<br>
+            System.out.println("Enter a number : ");<br>
+            String num= br.readLine();<br>
+            byte b[]=new byte[1024];<br>
+            b=num.getBytes();<br>
+            DatagramPacket dp= new DatagramPacket(b, b.length, InetAddress.getLocalHost(), serverPort);<br>
+            ds.send(dp);<br>
+            byte b1[]=new byte[1024];<br>
+            DatagramPacket dp1=new DatagramPacket(b1, b1.length);<br>
+            ds.receive(dp1);<br>
+            String str = new String(dp1.getData(), 0, dp1.getLength());<br>
+            System.out.println(str);<br>
+        }<br>
+        catch(Exception e){<br>
+            e.printStackTrace();<br>
+        }<br>
+    }   <br>
+}<br>
+<br>
+<h2>. A client server-based program using UDP to find the factorial of the entered number.</h2><br>
+package udpserverfactorial;<br>
+import java.io.*;<br>
+import java.net.*;<br>
+ <br>
+public class UDPServerFactorial {<br>
+ <br>
+ <br>
+    public static void main(String[] args) {<br>
+        int serverPort=2000;<br>
+        int clientPort=1000;<br>
+        try<br>
+        {<br>
+            DatagramSocket ds=new DatagramSocket(serverPort);<br>
+            byte b[]=new byte[1024];<br>
+            DatagramPacket dp=new DatagramPacket(b, b.length);<br>
+            ds.receive(dp);<br>
+            String str=new String(dp.getData(), 0, dp.getLength());<br>
+            System.out.println(str);<br>
+            int a= Integer.parseInt(str);<br>
+            String s= new String();<br>
+            int i, fact=1;<br>
+            for(i=1; i<=a; i++){<br>
+                fact=fact*i;<br>
+            }<br>
+                System.out.println("Fcatorial of "+a+" is: "+fact);<br>
+            String s1=String.valueOf(fact);<br>
+            byte b1[] = new byte[1024];<br>
+            b1 = s1.getBytes();<br>
+            DatagramPacket dp1 = new DatagramPacket(b1, b1.length, InetAddress.getLocalHost(), clientPort);<br>
+            ds.send(dp1);<br>
+        }<br>
+        catch (Exception e){<br>
+            e.printStackTrace();<br>
+        }   }   }<br>
+<h2>client</h2><br>
+import java.io.*;<br>
+import java.net.*;<br>
+public class UDPClientFactorial {<br>
+    public static void main(String[] args) {<br>
+       int serverPort=2000;<br>
+        int clientPort=1000;<br>
+        try{<br>
+            DatagramSocket ds= new DatagramSocket(clientPort);<br>
+            BufferedReader br= new BufferedReader(new InputStreamReader(System.in));<br>
+            System.out.println("Enter a number : ");<br>
+            String num= br.readLine();<br>
+            byte b[]=new byte[1024];<br>
+            b=num.getBytes();<br>
+            DatagramPacket dp= new DatagramPacket(b, b.length, InetAddress.getLocalHost(), serverPort);<br>
+            ds.send(dp);<br>
+            byte b1[]=new byte[1024];<br>
+            DatagramPacket dp1=new DatagramPacket(b1, b1.length);<br>
+            ds.receive(dp1);<br>
+            String str = new String(dp1.getData(), 0, dp1.getLength());<br>
+            System.out.println(str);<br>
+        }   catch(Exception e){<br>
+            e.printStackTrace();<br>
+        }    }   }<br>
+<br>
+<br>
+<h2>a)	AIM: A client server-based program using RPC to implement simple calculator operations like addition, subtraction, multiplication and division.</h2><br>
+RPCServer<br>
+package rpcserver;<br>
+import java.util.*;<br>
+import java.net.*;<br>
+public class RPCServer {<br>
+DatagramSocket ds;<br>
+DatagramPacket dp;<br>
+String str, methodName, result;<br>
+int val1, val2;<br>
+int serverport=1200, clientport=1300;<br>
+RPCServer() <br>
+{<br>
+    try{<br>
+        ds=new DatagramSocket(serverport);<br>
+        byte b[] = new byte[4096];<br>
+        while(true)<br>
+        {<br>
+            dp=new DatagramPacket(b, b.length);<br>
+            ds.receive(dp);<br>
+            str=new String(dp.getData(),0,dp.getLength());<br>
+            if(str.equalsIgnoreCase("q"))<br>
+            {<br>
+                System.exit(1);<br>
+            }	<br>
+            else<br>
+            {<br>
+                StringTokenizer sr=new StringTokenizer(str," ");<br>
+                int i=0;<br>
+                while(sr.hasMoreTokens())<br>
+                {<br>
+                    String token=sr.nextToken();<br>
+                    methodName=token;<br>
+                    val1 = Integer.parseInt(sr.nextToken());<br>
+                    val2 = Integer.parseInt(sr.nextToken());<br>
+                }<br>
+            }<br>
+                System.out.println(str);<br>
+                InetAddress is=InetAddress.getLocalHost();<br>
+                if(methodName.equalsIgnoreCase("add"))<br>
+                {<br>
+                    result=""+add(val1,val2);<br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("sub"))<br>
+                {<br>
+                    result=""+sub(val1,val2);  <br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("mul"))<br>
+                {<br>
+                    result=""+mul(val1,val2);  <br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("div"))<br>
+                {<br>
+                    result=""+div(val1,val2);<br>
+                }<br>
+                byte b1[]=result.getBytes();<br>
+                DatagramSocket ds1=new DatagramSocket();<br>
+                DatagramPacket dp1=new DatagramPacket(b1,b1.length, InetAddress.getLocalHost(), 1300);<br>
+                System.out.println("Result: "+result+"\n");<br>
+                ds1.send(dp1);<br>
+            }<br>
+        }<br>
+    <br>
+    catch(Exception e){<br>
+        e.printStackTrace();<br>
+    }<br>
+}<br>
+    public int add(int val1, int val2){<br>
+        return val1+val2;<br>
+    }<br>
+    public int sub(int val1, int val2){<br>
+        return val1-val2;<br>
+    }<br>
+    public int mul(int val1, int val2){<br>
+        return val1*val2;<br>
+    }<br>
+    public int div(int val1, int val2){<br>
+        return val1/val2;<br>
+    }    <br>
+    public static void main(String[] args) <br>
+    {<br>
+        new RPCServer();<br>
+    }<br>
+}<br>
+<h2>Client</h2><br>
+package rpcclient;<br>
+import java.io.*;<br>
+import java.util.*;<br>
+import java.net.*;<br>
+public class RPCClient {<br>
+    int serverport=1200, clientport=1300;<br>
+    RPCClient(){<br>
+        try{<br>
+            InetAddress is=InetAddress.getLocalHost();<br>
+            DatagramSocket ds=new DatagramSocket();<br>
+            DatagramSocket ds1=new DatagramSocket(clientport);<br>
+            System.out.println("\nRPC Client\n");<br>
+            System.out.println("Enter method name(add, sub, mmul, div) and parameters(twp operands)\n");<br>
+            while(true){<br>
+                BufferedReader br=new BufferedReader(new InputStreamReader(System.in));<br>
+                String str=br.readLine();<br>
+                byte b[]=str.getBytes();<br>
+                DatagramPacket dp=new DatagramPacket(b,b.length,is,serverport);<br>
+                ds.send(dp);<br>
+                dp=new DatagramPacket(b,b.length);<br>
+            <br>
+            <br>
+            ds1.receive(dp);<br>
+            String s=new String(dp.getData(),0,dp.getLength());<br>
+            System.out.println("\nResult = "+s+"\n");<br>
+        }<br>
+        }<br>
+    catch(Exception e){<br>
+    e.printStackTrace();<br>
+    }<br>
+    <br>
+}<br>
+    public static void main(String[] args) {<br>
+        new RPCClient();<br>
+    }<br>
+}<br>
+<h2>A client server-based program using RPC to find the square, square root, cube and cube root of the entered number.</h2><br>
+RPCServer<br>
+package rpcserver;<br>
+import java.util.*;<br>
+import java.net.*;<br>
+public class RPCServer {<br>
+DatagramSocket ds;<br>
+DatagramPacket dp;<br>
+String str, methodName, result;<br>
+int val1, val2;<br>
+int serverport=1200, clientport=1300;<br>
+RPCServer() <br>
+{<br>
+    try{<br>
+        ds=new DatagramSocket(serverport);<br>
+        byte b[] = new byte[4096];<br>
+        while(true)<br>
+        {<br>
+            dp=new DatagramPacket(b, b.length);<br>
+            ds.receive(dp);<br>
+            str=new String(dp.getData(),0,dp.getLength());<br>
+            if(str.equalsIgnoreCase("q"))<br>
+            {<br>
+                System.exit(1);<br>
+            }<br>
+            else<br>
+            {<br>
+                StringTokenizer sr=new StringTokenizer(str," ");<br>
+                int i=0;<br>
+                while(sr.hasMoreTokens())<br>
+                {<br>
+                    String token=sr.nextToken();<br>
+                    methodName=token;<br>
+                    val1 = Integer.parseInt(sr.nextToken());<br>
+                    val2 = Integer.parseInt(sr.nextToken());<br>
+                }<br>
+            }<br>
+                System.out.println(str);<br>
+                InetAddress is=InetAddress.getLocalHost();<br>
+                if(methodName.equalsIgnoreCase("square"))<br>
+                {<br>
+                    result=""+sqaure(val1);<br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("square_root"))<br>
+                {<br>
+                    result=""+square_root(val1);  <br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("cube"))<br>
+                {<br>
+                    result=""+cube(val1);  <br>
+                }<br>
+                else if(methodName.equalsIgnoreCase("cube_root"))<br>
+                {<br>
+                    result=""+cube_root(val1);<br>
+                }<br>
+                byte b1[]=result.getBytes();<br>
+                DatagramSocket ds1=new DatagramSocket();<br>
+                DatagramPacket dp1=new DatagramPacket(b1,b1.length, InetAddress.getLocalHost(), 1300);<br>
+                System.out.println("Result: "+result+"\n");<br>
+                ds1.send(dp1);<br>
+            }<br>
+        }<br>
+    <br>
+    catch(Exception e){<br>
+        e.printStackTrace();<br>
+    }<br>
+}<br>
+    public int square(int val1){<br>
+        return val1*val1;<br>
+    }<br>
+    public int square_root(int val1){<br>
+        return val1^1/2;<br>
+    }<br>
+    public int cube(int val1){<br>
+        return val1*val1*val1;<br>
+    }<br>
+    public int cube_root(int val1){<br>
+        return val1^1/3;<br>
+    }    <br>
+    public static void main(String[] args) <br>
+    {<br>
+        new RPCServer();<br>
+    }<br>
+}<br>
+<br>
+<h2>RPCClient:</h2><br>
+package rpcclient;<br>
+import java.io.*;<br>
+import java.util.*;<br>
+import java.net.*;<br>
+public class RPCClient {<br>
+    int serverport=1200, clientport=1300;<br>
+    RPCClient(){<br>
+        try{<br>
+            InetAddress is=InetAddress.getLocalHost();<br>
+            DatagramSocket ds=new DatagramSocket();<br>
+            DatagramSocket ds1=new DatagramSocket(clientport);<br>
+            System.out.println("\nRPC Client\n");<br>
+            System.out.println("Enter method name(square, square_root, cube and cube_root) and parameter(one operand)\n");<br>
+            while(true){<br>
+                BufferedReader br=new BufferedReader(new InputStreamReader(System.in));<br>
+                String str=br.readLine();<br>
+                byte b[]=str.getBytes();<br>
+                DatagramPacket dp=new DatagramPacket(b,b.length,is,serverport);<br>
+                ds.send(dp);<br>
+                dp=new DatagramPacket(b,b.length);<br>
+            <br>
+            <br>
+            ds1.receive(dp);<br>
+            String s=new String(dp.getData(),0,dp.getLength());<br>
+            System.out.println("\nResult = "+s+"\n");<br>
+        }<br>
+        }<br>
+    catch(Exception e){<br>
+    e.printStackTrace();<br>
+    }<br>
+    <br>
+}<br>
+    public static void main(String[] args) {<br>
+        new RPCClient();<br>
+    }<br>
+}<br>
+<h2>Write a program to show a multicast Socket example. </h2><br>
+package broadcastserver;<br>
+import java.net.*;<br>
+import java.io.*;<br>
+import java.util.*;<br>
+public class BroadcastServer {<br>
+    public static final int PORT=1234;<br>
+    public static void main(String[] args)throws Exception <br>
+    {<br>
+        MulticastSocket socket;<br>
+        DatagramPacket packet;<br>
+        InetAddress address;<br>
+        address = InetAddress.getByName("239.1.2.3");<br>
+        socket= new MulticastSocket();<br>
+        socket.joinGroup(address);<br>
+        byte[]data= null;<br>
+        for(;;)<br>
+        {<br>
+            Thread.sleep(10000);<br>
+            System.out.println("Sending");<br>
+            String str=("Karan is calling karan");<br>
+            data=str.getBytes();<br>
+            packet=new DatagramPacket(data,str.length(),address,PORT);<br>
+            socket.send(packet);       <br>
+        }<br>
+    }<br>
+}<br>
+<br>
+<br>
+<br>
+<h2>Broadcastclient1.java</h2><br>
+<br>
+package broadcastclient1;<br>
+import java.net.*;<br>
+import java.io.*;<br>
+public class BroadcastClient1 {<br>
+   public static final int PORT=1234;<br>
+    public static void main(String[] args) throws Exception <br>
+    {<br>
+    MulticastSocket socket; <br>
+    DatagramPacket packet; <br>
+    InetAddress address; <br>
+    address = InetAddress.getByName("239.1.2.3");<br>
+    <br>
+    socket = new MulticastSocket(PORT); <br>
+    socket.joinGroup(address); <br>
+    byte[] data = new byte[100]; <br>
+    packet = new DatagramPacket(data,data.length); <br>
+    for(;;) <br>
+    {<br>
+        socket.receive(packet); <br>
+        String str = new String(packet.getData()); <br>
+        System.out.println("Message received from "+ packet.getAddress() + " Message is :"+str); <br>
+    }  <br>
+    }<br>
+}<br>
+<br>
+<h2>Broadcastclient2.java</h2><br>
+<br>
+package broadcastclient2;<br>
+import java.net.*;<br>
+import java.io.*;<br>
+public class Broadcastclient2 {<br>
+   public static final int PORT=1234;<br>
+    public static void main(String[] args) throws Exception <br>
+    {<br>
+    MulticastSocket socket; <br>
+    DatagramPacket packet; <br>
+    InetAddress address; <br>
+    address = InetAddress.getByName("239.1.2.3");<br>
+    socket = new MulticastSocket(PORT); <br>
+    socket.joinGroup(address); <br>
+    byte[] data = new byte[100]; <br>
+    packet = new DatagramPacket(data,data.length); <br>
+    for(;;) <br>
+    {<br>
+        socket.receive(packet); <br>
+        String str = new String(packet.getData()); <br>
+        System.out.println("Message received from "+ packet.getAddress() + " Message is :"+str); <br>
+    }<br>
+	}<br>
+	}<br>
+<br>
 <br>
