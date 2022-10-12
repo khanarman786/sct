@@ -1,196 +1,41 @@
-simple neural net :<br>
-x = float(input("enter the input : "))<br>
-w = float(input("enter the weight : "))<br>
-b = float(input("enter the bias : "))<br>
-yin = (b +x*w)<br>
-print("the value of yin is ",yin)<br>
-if(yin<0):<br>
-    output = 0<br><br>
-elif(yin>1):<br>
-    output = 1<br>
-else:<br>
-    output = yin<br>
-print("output : ",output)<br>
-<br>
-caclulate output of neural net::::::<br><br>
-n = int(input("enter the number = "))<br>
-yin = 0<br>
-for i in range(0,n):<br>
-    x = float(input("enter the input : "))<br>
-    w  = float(input("enter the weight : "))<br>
-    yin = (yin+x*w)<br>
-print("yin is ",yin)<br>
-if(yin<0):<br>
-    output = 0<br>
-elif(yin>1):<br>
-    output =1<br>
-else:<br>
-    output = yin<br>
-print("the output is ",output)<br>
+<h2>a)	AIM: write a program for implementing client server communication model using TCP/IP for checking whether the given number is prime or not.</h2>
+<h2>TcpServerPrime:</h2>
+package tcpclientprime;
+import java.net.*;
+import java.io.*;
+public class TcpClientPrime {
+ 
+    public static void main(String[] args) {
+        try {
+            Socket cs=new Socket("LocalHost",8001);
+            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));
+            
+            System.out.println("Enter a Number:");
+            int a=Integer.parseInt(info.readLine());
+            
+            DataOutputStream out=new DataOutputStream(cs.getOutputStream());
+            out.writeInt(a);
+            DataInputStream in = new DataInputStream(cs.getInputStream());
+System.out.println(in.readUTF());
+cs.close();   }
+catch(Exception e)   {  System.out.println(e.toString());     }  }  }
 
-<br>
-activation functions :::::::::<br>
-import math<br>
-n=int(input("enter number of input"))<br>
-yin = 0<br>
-for i in range(0,n):<br>
-    x = float(input("enter the input : "))<br>
-    w  = float(input("enter the weight : "))<br>
-    yin = (yin+x*w)<br>
-b = float(input("enter bias : "))<br>
-yin = yin+b<br>
-<br>
-print("Yin is ",yin)<br>
-binary_sigmoid = (1/(1+(math.e**(-yin))))<br>
-print("binary_sigmoidal = ",round(binary_sigmoid,3))<br>
-bipolar_sigmoid = (2/(1+(math.e**(-yin))))-1<br>
-print("binary_sigmoidal = ",round(bipolar_sigmoid,3))<br>
-
-<br>
-mp andnot :::::::<br>
-<br>
-import numpy as np<br>
-x1_input = [1,1,0,0]<br>
-x2_input = [1,0,1,0]<br>
-print("considering all weight as excitatory ")<br>
-w1 = [1,1,1,1]<br>
-w2 = [1,1,1,1]<br>
-yin = []<br>
-print("x1", "x2", "yin")<br>
-for i in range(0,4):<br>
-    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])<br>
-    print(x1_input[i]," ",x2_input[i]," ",yin[i])<br>
-print("considering all weight as inhibitory")<br>
-w1 = [1,1,1,1]<br>
-w2 = [-1,-1,-1,-1]<br>
-yin = []<br>
-print("x1" , "x2" , "yin")<br>
-for i in range(0,4):<br>
-    yin.append(x1_input[i]*w1[i]+x2_input[i]*w2[i])<br>
-    print(x1_input[i]," ",x2_input[i]," ",yin[i])<br>
-theta = 2*1-1<br>
-print("applying threshold",theta)<br>
-y=[]<br>
-print("x1", "x2" , "y")<br>
-for i in range(0,4):<br>
-    if(yin[i]>=theta):<br>
-        value=1<br>
-        y.append(value)<br>
-    else:<br>
-        value=0<br>
-        y.append(value)<br>
-for i in range(0,4):<br>
-    print(x1_input[i]," ",x2_input[i]," ",y[i])<br>
-    
-    <br>
-    <br>
- mp xor :::::::<br>
- print("XOR using MP neuron")<br>
-x1_input=[1,1,0,0]<br>
-x2_input=[1,0,1,0]<br>
-print("considering one weight as excitatory and on<br>e as inhibitory")<br>
-w11=[1,1,1,1]<br>
-w12=[-1,-1,-1,-1]<br>
-print("calculating z1")<br>
-print("x1","x2","z1")<br>
-z1=[]<br>
-for i in range(0,4):<br>
-    z1.append(x1_input[i]*w11[i] + x2_input[i]*w12[i])<br>
-    print(x1_input[i]," ",x2_input[i]," ",z1[i])<br>
-print("considering one weight as inhibitory and one as excitatory")<br>
-w21=[-1,-1,-1,-1]<br>
-w22=[1,1,1,1]<br>
-z2=[]<br>
-print("calculating z2)<br>
-z2=[]<br>
-for i in range(0,4):<br>
-    z2.append(x1_input[i]*w21[i] + x2_input[i]*w22[i])<br>
-    print(x1_input[i]," ",x2_input[i]," ",z2[i])<br>
-print("applying threshold =1 for z1 and z2")<br>
-for i in range(0,4):<br>
-    if(z1[i]>=1):<br>
-        z1[i]=1<br>
-    else:<br>
-        z1[i]=0<br>
-    if(z2[i]>=1):<br>
-        z2[i]=1<br>
-    else:<br>
-        z2[i]=0<br>
-print("z1","z2")<br>
-for i in range(0,4):<br>
-    print(z1[i]," ",z2[i])<br>
-print("applying threshold = 1 for yin")<br>
-y=[]<br>
-v1=1<br>
-v2=1<br>
-print("x1","x2","y")<br>
-for i in range(0,4):<br>
-    y.append(z1[i]*v1 + z2[i]*v2)<br>
-    print(x1_input[i]," ",x2_input[i]," ",y[i])<br>
-   <br>
-hebb ::::::::<br>
-import numpy as np<br>
-x1=np.array([1,-1,-1,1,-1,-1,1,1,1])<br>
-x2=np.array([1,-1,1,1,-1,1,1,1,1])<br>
-b=0<br>
-y=np.array([1,-1])<br>
-wtold = np.zeros((9,))<br>
-wtnew = np.zeros((9,))<br>
-bias = 0<br>
-wtnew = wtnew.astype(int)<br>
-wtold = wtold.astype(int)<br>
-print("first input with target 1")<br>
-for i in range(0,9):<br>
-    wtnew[i]=wtold[i]+x1[i]*y[0]<br>
-wtold = wtnew<br>
-b=b+y[0]<br>
-print("new wt",wtnew)<br>
-print("Bias value ",b)<br>
-print("first input with target -1")<br>
-for i in range(0,9):<br>
-    wtnew[i]=wtold[i]+x2[i]*y[1]<br>
-wtold = wtnew<br>
-b=b+y[0]<br>
-print("new wt",wtnew)
-print("Bias value ",b)<br>
-<br>
-
-delta ::::::::::::::::::::::::<br>
-# -*- coding: utf-8 -*-
-"""<br>
-Created on Sun Oct  9 21:49:36 2022<br>
-
-@author: arman<br>
-"""<br>
-import numpy as np<br>
-np.set_printoptions(precision=2)<br>
-x=np.zeros((3,))<br>
-weight=np.zeros((3,))<br>
-desired=np.zeros((3,))<br>
-actual=np.zeros((3,))<br>
-for i in range(0,3):<br>
-    x[i]=float(input("initial input : "))<br>
-for i in range(0,3):<br>
-    weight[i]=float(input("initial weight : "))<br>
-for i in range(0,3):<br>
-    desired[i]=float(input("desired output :"))<br>
-a=float(input("enter learning rate"))<br>
-actual =a*weight<br>
-print("actual ",actual)<br>
-print("desired ",desired)<br>
-while True:<br>
-    if(np.array_equal(desired,actual)):<br>
-        break<br>
-    else:<br>
-        for i in range(0,3):<br>
-            weight[i]=weight[i]+a*(desired[i]-actual[i])<br>
-    actual = x*weight<br>
-print("weight",weight)<br>
-print("actual ",actual)<br>
-print("desired ",desired)<br>
-print("*"*20)<br>
-print("fianl output" )<br>
-print("corrected weight ",weight)<br>
-print("actual ",actual)<br>
-print("desired",desired)<br>
+TcpClientPrime:
+package tcpclientprime;
+import java.net.*;
+import java.io.*;
+public class TcpClientPrime {
+    public static void main(String[] args) {
+        try{
+            Socket cs=new Socket("LocalHost",8001);
+            BufferedReader info = new BufferedReader(new InputStreamReader(System.in));
+            
+            System.out.println("Enter a Number:");
+            int a=Integer.parseInt(info.readLine());
+            
+            DataOutputStream out=new DataOutputStream(cs.getOutputStream());
+            out.writeInt(a);
+            DataInputStream in = new DataInputStream(cs.getInputStream());
+System.out.println(in.readUTF());
+cs.close();   }  catch(Exception e)   {  System.out.println(e.toString());      }   }   }
 
